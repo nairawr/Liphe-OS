@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Life OS</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="stage">
+  <div class="phone" id="phone">
+
+    <!-- Barra de estado -->
+    <div class="statusbar" id="statusbar">
+      <span class="sb-time" id="sbTime">9:41</span>
+      <div class="island" id="island" title="Dynamic Island"><span id="islandDot"></span></div>
+      <div class="sb-icons">
+        <span id="sbSignal">▂▄▆</span><span>5G</span><span id="sbWifi">⌒</span><span id="sbBatt">▮ 100%</span>
+      </div>
+    </div>
+
+    <!-- ============ 1. BIENVENIDA ============ -->
+    <section class="screen active" id="scr-welcome">
+      <div class="welcome">
+        <h1 id="helloWord">Hello</h1>
+        <p class="welcome-sub" id="helloLang">Inglés</p>
+        <button class="btn-primary" id="btnStart">Empezar</button>
+        <p class="welcome-foot">Life OS · un iPhone falso con bots</p>
+      </div>
+    </section>
+
+    <!-- ============ 2. CONFIGURACIÓN ============ -->
+    <section class="screen" id="scr-setup">
+      <div class="setup">
+        <div class="setup-progress"><span id="setupStepLabel">Paso 1 de 5</span><div class="setup-bar"><i id="setupBarFill"></i></div></div>
+        <div class="setup-body" id="setupBody"></div>
+        <div class="setup-actions">
+          <button class="btn-ghost" id="btnSetupBack">Atrás</button>
+          <button class="btn-primary" id="btnSetupNext">Continuar</button>
+          <button class="btn-ghost" id="btnSetupSkip" style="display:none">Configurar más tarde</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. ELEGIR UNIVERSO ============ -->
+    <section class="screen" id="scr-universe">
+      <div class="pad">
+        <h2 class="title">Elige tu universo</h2>
+        <p class="subtitle">Todo lo que pase dentro será con los bots de ese mundo.</p>
+        <div class="universe-list" id="universeList"></div>
+      </div>
+    </section>
+
+    <!-- ============ 4. ELEGIR QUIÉN ERES ============ -->
+    <section class="screen" id="scr-identity">
+      <div class="pad scroll">
+        <h2 class="title">¿Quién eres aquí?</h2>
+        <p class="subtitle">Así te verán los bots y así aparecerás en tu perfil.</p>
+        <button class="btn-oc" id="btnOC">✦ Ser mi heroína <span>mi OC de Boku no Hero</span></button>
+        <label class="fld">Nombre<input id="idName" type="text" placeholder="Naiara" maxlength="24"></label>
+        <label class="fld">Edad<input id="idAge" type="number" min="10" max="99" placeholder="19"></label>
+        <label class="fld">Rol
+          <select id="idRole">
+            <option>Estudiante de la 1-A</option>
+            <option>Heroína</option>
+            <option>Alumna nueva</option>
+            <option>Estudiante</option>
+            <option>Famosa</option>
+            <option>Manager</option>
+            <option>Reina de Narnia</option>
+            <option>Viajera</option>
+          </select>
+        </label>
+        <label class="fld">Relaciones<input id="idRel" type="text" placeholder="p. ej. novia de Bakugou, mejor amiga de Uraraka" maxlength="80"></label>
+        <label class="fld">¿Cómo estás hoy?
+          <div class="chips" id="moodChips">
+            <button type="button" data-mood="Feliz">😊 Feliz</button>
+            <button type="button" data-mood="Cansada">😴 Cansada</button>
+            <button type="button" data-mood="Enfadada">😤 Enfadada</button>
+            <button type="button" data-mood="Enamorada">😍 Enamorada</button>
+            <button type="button" data-mood="Tranquila">😌 Tranquila</button>
+          </div>
+        </label>
+        <label class="fld">Horarios<input id="idSched" type="text" placeholder="p. ej. clases 8:00–14:00, entreno 17:00" maxlength="80"></label>
+        <button class="btn-primary big" id="btnIdentityDone">Entrar en mi iPhone</button>
+      </div>
+    </section>
+
+    <!-- ============ 5. PANTALLA DE BLOQUEO ============ -->
+    <section class="screen" id="scr-lock">
+      <div class="lock">
+        <div class="lock-date" id="lockDate">lunes, 16 de noviembre</div>
+        <div class="lock-time" id="lockTime">9:41</div>
+        <div class="lock-notifs" id="lockNotifs"></div>
+        <div class="lock-bottom">
+          <button class="btn-unlock" id="btnUnlock">Desliza para desbloquear ↑</button>
+          <div class="lock-tools"><span>🔦</span><span>📷</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. PANTALLA DE INICIO ============ -->
+    <section class="screen" id="scr-home">
+      <div class="home">
+        <div class="home-date" id="homeDate">lunes, 16 de noviembre</div>
+        <div class="widget" id="identityWidget"></div>
+        <div class="app-grid" id="appGrid"></div>
+        <div class="page-dots"><i class="on"></i><i></i></div>
+        <div class="dock" id="dock"></div>
+      </div>
+    </section>
+
+    <!-- ============ 7. MENSAJES ============ -->
+    <section class="screen app" id="app-messages">
+      <header class="app-header"><button class="btn-back" data-go="home">‹</button><h3>Mensajes</h3><button class="btn-edit">✎</button></header>
+      <div class="search"><input placeholder="Buscar" readonly></div>
+      <div class="chat-list" id="chatList"></div>
+    </section>
+
+    <section class="screen app" id="app-chat">
+      <header class="app-header chat-head">
+        <button class="btn-back" data-go="messages">‹</button>
+        <div class="chat-title"><span class="avatar" id="chatAvatar">💚</span><div><b id="chatName">Deku</b><small id="chatStatus">en línea</small></div></div>
+        <button class="btn-edit">📞</button>
+      </header>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="quick" id="quickReplies"></div>
+      <div class="chat-input">
+        <input id="chatText" type="text" placeholder="Mensaje" autocomplete="off">
+        <button id="btnSend">↑</button>
+      </div>
+    </section>
+
+    <!-- ============ 8. INSTAGRAM ============ -->
+    <section class="screen app" id="app-instagram">
+      <header class="app-header"><button class="btn-back" data-go="home">‹</button><h3 class="ig-logo">Instagram</h3><button class="btn-edit">♡</button></header>
+      <div class="stories" id="stories"></div>
+      <div class="feed" id="feed"></div>
+      <nav class="ig-nav">
+        <button data-igtab="feed" class="on">🏠</button>
+        <button data-igtab="search">🔍</button>
+        <button data-igtab="profile">👤</button>
+      </nav>
+      <div class="ig-profile" id="igProfile" style="display:none"></div>
+    </section>
+
+    <!-- ============ 9. APP STORE ============ -->
+    <section class="screen app" id="app-store">
+      <header class="app-header"><button class="btn-back" data-go="home">‹</button><h3>App Store</h3><span class="avatar small" id="storeAvatar">🌸</span></header>
+      <div class="search"><input placeholder="Buscar apps" readonly></div>
+      <div class="store-list" id="storeList"></div>
+      <p class="store-note">Descargar una app cambia tu universo dentro de Life OS.</p>
+    </section>
+
+    <!-- ============ 10. AJUSTES ============ -->
+    <section class="screen app" id="app-settings">
+      <header class="app-header"><button class="btn-back" data-go="home">‹</button><h3>Ajustes</h3></header>
+      <div class="pad scroll">
+        <div class="settings-profile" id="settingsProfile"></div>
+        <div class="set-group" id="setUniverse"></div>
+        <div class="set-group"><h4>Fondo de pantalla</h4><div class="wallpapers" id="wallpapers"></div></div>
+        <div class="set-group"><h4>Notificaciones por bot</h4><div id="notifToggles"></div></div>
+        <div class="set-group"><h4>Tu identidad</h4><button class="set-row" id="btnEditIdentity">Editar nombre, edad, rol y mood ›</button></div>
+        <button class="btn-danger" id="btnReset">Restablecer Life OS</button>
+      </div>
+    </section>
+
+    <!-- ============ 11. FOTOS ============ -->
+    <section class="screen app" id="app-photos">
+      <header class="app-header"><button class="btn-back" data-go="home">‹</button><h3>Fotos</h3></header>
+      <div class="photos-grid" id="photosGrid"></div>
+    </section>
+
+    <!-- ============ 12. RELOJ MUNDIAL ============ -->
+    <section class="screen app" id="app-clock">
+      <header class="app-header"><button class="btn-back" data-go="home">‹</button><h3>Reloj mundial</h3></header>
+      <div class="clock-list" id="clockList"></div>
+    </section>
+
+    <!-- Centro de Control -->
+    <div class="cc" id="cc">
+      <div class="cc-grid">
+        <button class="cc-tile on" id="ccWifi">📶<span>Wi-Fi</span><small>Casa_Naiara</small></button>
+        <button class="cc-tile on" id="ccBt">🔵<span>Bluetooth</span><small>Activado</small></button>
+        <button class="cc-tile" id="ccPlane">✈️<span>Modo avión</span><small>Desactivado</small></button>
+        <button class="cc-tile" id="ccTorch">🔦<span>Linterna</span><small>Apagada</small></button>
+        <div class="cc-slider"><span>☀️ Brillo</span><input type="range" id="ccBright" min="40" max="100" value="100"></div>
+        <div class="cc-slider"><span>🔊 Volumen</span><input type="range" id="ccVol" min="0" max="100" value="70"></div>
+      </div>
+      <button class="btn-primary" id="ccClose">Cerrar</button>
+    </div>
+
+    <!-- Banner de notificación -->
+    <div class="banner" id="banner">
+      <span class="avatar small" id="bannerAvatar">💚</span>
+      <div class="banner-text"><b id="bannerTitle">Mensajes</b><span id="bannerBody"></span></div>
+    </div>
+
+    <!-- Isla expandida -->
+    <div class="island-pop" id="islandPop">
+      <span id="islandPopIcon">🎵</span>
+      <div><b id="islandPopTitle">Sonando ahora</b><span id="islandPopSub">Hero Academy · tema principal</span></div>
+    </div>
+
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
